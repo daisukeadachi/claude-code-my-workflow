@@ -221,6 +221,36 @@ Rules use path-scoped loading: **always-on** rules load every session (~100 line
 
 ---
 
+## Multi-Machine Setup
+
+If you use Claude Code on more than one machine (e.g., a laptop and a workstation), run the setup script once per machine after cloning. This makes skills, agents, and rules available in **all projects** on that machine — not just this repo.
+
+### Mac / Linux
+
+```bash
+git clone https://github.com/YOUR_USERNAME/claude-code-my-workflow.git
+cd claude-code-my-workflow
+bash setup.sh
+```
+
+### Windows (PowerShell)
+
+```powershell
+git clone https://github.com/YOUR_USERNAME/claude-code-my-workflow.git
+cd claude-code-my-workflow
+.\setup.ps1
+```
+
+**What the script does:**
+1. Creates symlinks (Mac/Linux) or directory junctions (Windows) in `~/.claude/` pointing to `skills/`, `agents/`, and `rules/` in this repo
+2. Appends a workflow reference section to `~/CLAUDE.md` (idempotent — safe to run again)
+
+**Result:** Any project you open with Claude Code will have access to all skills and agents. When you update this repo (`git pull`), all machines pick up the changes automatically via the symlinks.
+
+**Note (Windows):** Python hooks (`.py`) work if Python is installed. Shell hooks (`.sh`) require WSL. For hooks in a specific project, copy `.claude/hooks/` and `.claude/settings.json` from this repo into that project's `.claude/` directory.
+
+---
+
 ## Prerequisites
 
 | Tool | Required For | Install |
